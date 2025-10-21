@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZOMA WALLPAPERS | Login</title>
+
+  <!-- Firebase v8 (for Auth + Database) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* 🌈 Animated Gradient Background */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(-45deg, #f6d6ff, #a0e9ff, #ffb6c1, #b2f7ef);
+      background-size: 400% 400%;
+      animation: gradientMove 10s ease infinite;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* 🧊 Login Box */
+    .container {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(12px);
+      border-radius: 25px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      padding: 30px;
+      text-align: center;
+      color: #333;
+      animation: fadeIn 1s ease;
+    }
+    h2 { color: #333; font-weight: 700; margin-bottom: 15px; }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.8);
+      transition: 0.3s;
+    }
+    input:focus { background: white; box-shadow: 0 0 10px rgba(106, 90, 205, 0.4); }
+    button {
+      width: 95%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+    button:hover { transform: scale(1.05); }
+    #sign_in { background: linear-gradient(135deg, #6a5acd, #00bfff); }
+    #sign_up { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+    #google_login { background: linear-gradient(135deg, #ff5f6d, #ffc371); }
+    #facebook_login { background: linear-gradient(135deg, #4267B2, #00bfff); }
+    #status { color: #333; margin-top: 15px; font-size: 14px; display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 400px) {
+      .container { width: 90%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Welcome 🌸</h2>
+    <input id="email" type="text" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+
+    <button id="sign_up">Sign Up</button>
+    <button id="sign_in">Sign In</button>
+
+    <button id="google_login">Login with Google</button>
+    <button id="facebook_login">Login with Facebook</button>
+
+    <span id="status"></span>
+  </div>
+
+  <script>
+    // ============================
+    // 🔥 Firebase Configuration
+    // ============================
+    var firebaseConfig = {
+      apiKey: "AIzaSyCfXWjMdQINLsUW9-cleFfqX1mfPxisHj8",
+      authDomain: "zoma-wallpapers-a11fe.firebaseapp.com",
+      databaseURL: "https://zoma-wallpapers-a11fe-default-rtdb.firebaseio.com/",
+      projectId: "zoma-wallpapers-a11fe",
+      storageBucket: "zoma-wallpapers-a11fe.appspot.com",
+      messagingSenderId: "606494510077",
+      appId: "1:606494510077:android:d1a78bda7bbefaf127e794"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // ============================
+    // ✉️ Email Sign Up
+    // ============================
+    document.getElementById("sign_up").onclick = function() {
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          document.getElementById("status").innerText = "Account created successfully! Please sign in.";
+        })
+        .catch((error) => {
+          document.getElementById("status").innerText = error.message;
+        });
+    };
+
+    // ============================
+    // 🔑 Email Sign In
+    // ============================
+    document.getElementById("sign_in").onclick = function() {
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(() => {
+          window.location.href = "zoma_wallpapers.html"; // ✅ Redirect after login
+        })
+        .catch((error) => {
+          document.getElementById("status").innerText = error.message;
+        });
+    };
+
+    // ============================
+    // 🌐 Google Login
+    // ============================
+    document.getElementById("google_login").onclick = function() {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+          window.location.href = "zoma_wallpapers.html";
+        })
+        .catch((error) => {
+          document.getElementById("status").innerText = error.message;
+        });
+    };
+
+    // ============================
+    // 📘 Facebook Login
+    // ============================
+    document.getElementById("facebook_login").onclick = function() {
+      var provider = new firebase.auth.FacebookAuthProvider();
+      firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+          window.location.href = "zoma_wallpapers.html";
+        })
+        .catch((error) => {
+          document.getElementById("status").innerText = error.message;
+        });
+    };
+  </script>
+</body>
+</html>
