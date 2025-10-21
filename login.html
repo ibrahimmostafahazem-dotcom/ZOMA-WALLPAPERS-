@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZOMA WALLPAPERS | Login</title>
+
+  <!-- Firebase v8 -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(-45deg, #a0e9ff, #ffb6c1, #b2f7ef, #c2a5ff);
+      background-size: 400% 400%;
+      animation: gradientMove 10s ease infinite;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(15px);
+      border-radius: 25px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      width: 350px;
+      padding: 30px;
+      text-align: center;
+      color: #333;
+      animation: fadeIn 1s ease;
+    }
+
+    h2 {
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #222;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.85);
+      transition: 0.3s;
+    }
+
+    input:focus {
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+    }
+
+    button {
+      width: 95%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    button:hover { transform: scale(1.05); }
+
+    #sign_in { background: linear-gradient(135deg, #6a5acd, #00bfff); }
+    #sign_up { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+    #google_login { background: linear-gradient(135deg, #ff5f6d, #ffc371); }
+    #facebook_login { background: linear-gradient(135deg, #4267B2, #00bfff); }
+
+    #status {
+      color: #222;
+      margin-top: 15px;
+      font-size: 14px;
+      display: block;
+      min-height: 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>ZOMA Wallpapers 🌸</h2>
+    <input id="email" type="text" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+
+    <button id="sign_up">Sign Up</button>
+    <button id="sign_in">Sign In</button>
+
+    <button id="google_login">Login with Google</button>
+    <button id="facebook_login">Login with Facebook</button>
+
+    <span id="status"></span>
+  </div>
+
+  <script>
+    // ✅ Firebase config
+    var firebaseConfig = {
+      apiKey: "AIzaSyCfXWjMdQINLsUW9-cleFfqX1mfPxisHj8",
+      authDomain: "zoma-wallpapers-a11fe.firebaseapp.com",
+      projectId: "zoma-wallpapers-a11fe",
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const auth = firebase.auth();
+    const statusEl = document.getElementById("status");
+
+    // لو المستخدم عامل تسجيل دخول قبل كده → يدخل على main.html على طول
+    if(localStorage.getItem('loggedIn') === 'true'){
+      window.location.href = "main.html";
+    }
+
+    // 🧩 Sign Up
+    document.getElementById("sign_up").onclick = function() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => statusEl.innerText = "✅ Account created successfully! Please sign in.")
+        .catch(error => statusEl.innerText = "⚠️ " + error.message);
+    };
+
+    // 🔐 Sign In
+    document.getElementById("sign_in").onclick = function() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          localStorage.setItem('loggedIn', 'true');
+          window.location.href = "main.html";
+        })
+        .catch(error => statusEl.innerText = "⚠️ " + error.message);
+    };
+
+    // 🌐 Google Login (popup)
+    document.getElementById("google_login").onclick = function() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(() => {
+          localStorage.setItem('loggedIn', 'true');
+          window.location.href = "main.html";
+        })
+        .catch(error => statusEl.innerText = "⚠️ " + error.message);
+    };
+
+    // 📘 Facebook Login (popup)
+    document.getElementById("facebook_login").onclick = function() {
+      const provider = new firebase.auth.FacebookAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(() => {
+          localStorage.setItem('loggedIn', 'true');
+          window.location.href = "main.html";
+        })
+        .catch(error => statusEl.innerText = "⚠️ " + error.message);
+    };
+  </script>
+</body>
+</html>
