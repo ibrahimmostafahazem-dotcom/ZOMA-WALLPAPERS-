@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZOMA Wallpapers - Home</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        background: linear-gradient(90deg, #ff758c, #ff7eb3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: fadeInText 2s ease-in-out;
+    }
+
+    p {
+        font-size: 1.2rem;
+        margin-bottom: 40px;
+        opacity: 0.85;
+        animation: fadeInText 2s ease-in-out 0.5s forwards;
+    }
+
+    .btn {
+        padding: 15px 40px;
+        background: linear-gradient(90deg, #ff758c, #ff7eb3);
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    @keyframes fadeInText {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+        h1 { font-size: 2rem; }
+        p { font-size: 1rem; }
+        .btn { padding: 12px 30px; font-size: 1rem; }
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to ZOMA Wallpapers</h1>
+<p>Explore stunning wallpapers and personalize your device with style.</p>
+
+<!-- زر البداية -->
+<button id="startBtn" class="btn" onclick="goToStart()">Start</button>
+
+<!-- زر تسجيل الخروج -->
+<button id="logoutBtn" class="btn" onclick="logout()" style="display:none;">Logout</button>
+
+<script>
+// التحقق من حالة تسجيل الدخول
+if(localStorage.getItem('loggedIn') === 'true'){
+    document.getElementById('startBtn').style.display = 'none';
+    document.getElementById('logoutBtn').style.display = 'inline-block';
+}
+
+// دالة زر Start
+function goToStart() {
+    // لو المستخدم مش عامل تسجيل دخول → يروح للـ login.html
+    if(localStorage.getItem('loggedIn') !== 'true'){
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // التحقق هل هي أول مرة يضغط فيها Start
+    if(localStorage.getItem('firstStartDone') !== 'true'){
+        // أول مرة فقط → يفتح الرابط الخارجي
+        localStorage.setItem('firstStartDone', 'true');
+        window.location.href = 'https://ibrahimmostafahazem-dotcom.github.io/ZOMA-WALLPAPERS-/';
+    } else {
+        // المرات التالية → يفتح الصفحة المحلية main.html
+        window.location.href = 'main.html';
+    }
+}
+
+// دالة تسجيل الخروج
+function logout() {
+    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('firstStartDone'); // إعادة تفعيل الرابط الخارجي عند الدخول مرة أخرى
+    document.getElementById('logoutBtn').style.display = 'none';
+    document.getElementById('startBtn').style.display = 'inline-block';
+    alert('You have been logged out.');
+}
+</script>
+</body>
+</html>
