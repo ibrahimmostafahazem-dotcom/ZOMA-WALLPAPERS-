@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ZOMA Wallpapers - Home</title>
+
 <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: "Poppins", sans-serif;
         background: linear-gradient(135deg, #1e3c72, #2a5298);
         color: #fff;
         min-height: 100vh;
@@ -16,25 +17,133 @@
         align-items: center;
         justify-content: center;
         text-align: center;
+        overflow: hidden;
         padding: 20px;
     }
 
+    /* شعار التطبيق */
+    .logo {
+        font-size: 2.3rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 25px;
+        background: linear-gradient(90deg, #00c6ff, #0072ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: fadeIn 2s ease-in-out;
+    }
+
     h1 {
-        font-size: 3rem;
+        font-size: 2.2rem;
         margin-bottom: 10px;
         background: linear-gradient(90deg, #ff758c, #ff7eb3);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        animation: fadeInText 2s ease-in-out;
+        animation: fadeIn 2s ease-in-out;
     }
 
     p {
         font-size: 1.2rem;
         margin-bottom: 40px;
-        opacity: 0.85;
-        animation: fadeInText 2s ease-in-out 0.5s forwards;
+        opacity: 0.9;
+        animation: fadeIn 2s ease-in-out 0.5s forwards;
     }
 
+    .btn {
+        padding: 15px 45px;
+        background: linear-gradient(90deg, #ff758c, #ff7eb3);
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        animation: fadeInUp 1s ease forwards;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    }
+
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+        0% { opacity: 0; transform: translateY(30px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+        position: absolute;
+        bottom: 15px;
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
+
+    @media (max-width: 480px) {
+        .logo { font-size: 1.8rem; }
+        h1 { font-size: 1.6rem; }
+        p { font-size: 1rem; }
+        .btn { padding: 12px 35px; font-size: 1rem; }
+    }
+</style>
+</head>
+
+<body>
+
+    <!-- شعار التطبيق -->
+    <div class="logo">ZOMA Wallpapers</div>
+
+    <h1>Welcome Back!</h1>
+    <p>Explore stunning wallpapers and personalize your device with style.</p>
+
+    <!-- Start Button -->
+    <button id="startBtn" class="btn" onclick="goToStart()">Start</button>
+
+    <!-- Logout Button -->
+    <button id="logoutBtn" class="btn" onclick="logout()" style="display:none;">Logout</button>
+
+    <footer>© 2025 ZOMA Wallpapers. All rights reserved.</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const startBtn = document.getElementById("startBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Show buttons based on login status
+    if (localStorage.getItem("loggedIn") === "true") {
+        startBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+    } else {
+        startBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+    }
+});
+
+// Start button logic
+function goToStart() {
+    if (localStorage.getItem("loggedIn") !== "true") {
+        window.location.href = "login.html";
+    } else {
+        window.location.href = "main.html";
+    }
+}
+
+// Logout button logic
+function logout() {
+    localStorage.removeItem("loggedIn");
+    alert("You have been logged out successfully.");
+    window.location.reload();
+}
+</script>
+
+</body>
+</html>
     .btn {
         padding: 15px 40px;
         background: linear-gradient(90deg, #ff758c, #ff7eb3);
