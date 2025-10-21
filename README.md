@@ -1,2 +1,0 @@
-# ZOMA-WALLPAPERS-
-Wallpapers app 
