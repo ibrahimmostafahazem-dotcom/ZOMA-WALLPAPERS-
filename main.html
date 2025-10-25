@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZOMA WALLPAPERS | Main</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease infinite;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .menu, .share, .lang {
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .menu:hover, .share:hover, .lang:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.15);
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 70px;
+      left: 25px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 12px;
+      display: none;
+      flex-direction: column;
+      min-width: 230px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+
+    .dropdown a {
+      padding: 14px;
+      color: #fff;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .dropdown a:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .slider {
+      width: 90%;
+      height: 240px;
+      margin: 100px auto 30px auto;
+      border-radius: 25px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    }
+
+    .slides {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s ease-in-out;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-bottom: 80px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 30px;
+      color: #fff;
+      font-size: 17px;
+      padding: 15px 28px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      color: #ccc;
+      background: rgba(0, 0, 0, 0.4);
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <button class="menu" onclick="toggleMenu()">☰</button>
+    <div>
+      <button class="share" onclick="shareApp()">⋯</button>
+      <button class="lang" onclick="toggleLanguage()">🌐</button>
+    </div>
+  </header>
+
+  <div class="dropdown" id="dropdownMenu">
+    <a href="mailto:ibrahimmostafahazem@gmail.com">📧 Support</a>
+  </div>
+
+  <div class="slider" id="slider">
+    <div class="slides">
+      <img src="wallpaper/HOME.jpg" alt="ANIME WALLPAPERS">
+      <img src="wallpaper/img1.jpg" alt="Category 2">
+      <img src="wallpaper/img2.jpg" alt="Category 3">
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button class="btn" style="background:#FF66CC" data-en="Anime and Fantasy" data-ar="الأنمي والخيال" onclick="openPage('anime.html')">Anime and Fantasy</button>
+    <button class="btn" style="background:#2ECC71" data-en="Nature and Seasons" data-ar="الطبيعة والفصول" onclick="openPage('nature.html')">Nature and Seasons</button>
+    <button class="btn" style="background:#2E2B5F" data-en="Space and Galaxy" data-ar="الفضاء والمجرات" onclick="openPage('space.html')">Space and Galaxy</button>
+    <button class="btn" style="background:#0056D2" data-en="Action and Heroes" data-ar="الأكشن والأبطال" onclick="openPage('action.html')">Action and Heroes</button>
+    <button class="btn" style="background:#FF3366" data-en="Beauty and Emotions" data-ar="الجمال والمشاعر" onclick="openPage('beauty.html')">Beauty and Emotions</button>
+    <button class="btn" style="background:#C0A060" data-en="Art and Culture" data-ar="الفن والثقافة" onclick="openPage('art.html')">Art and Culture</button>
+    <button class="btn" style="background:#FFD700" data-en="Energy and Vibes" data-ar="الطاقة والإحساس" onclick="openPage('energy.html')">Energy and Vibes</button>
+  </div>
+
+  <footer>© 2025 ZOMA Wallpapers | All Rights Reserved</footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("dropdownMenu");
+      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+    }
+
+    function openPage(page) {
+      window.location.href = page;
+    }
+
+    // 🔄 Slider
+    let index = 0;
+    const slides = document.querySelector(".slides");
+    const totalSlides = document.querySelectorAll(".slides img").length;
+    setInterval(() => {
+      index = (index + 1) % totalSlides;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }, 3500);
+
+    // 🌐 Language toggle
+    let lang = localStorage.getItem("lang") || "en";
+    function toggleLanguage() {
+      lang = (lang === "en") ? "ar" : "en";
+      localStorage.setItem("lang", lang);
+      updateText();
+    }
+
+    function updateText() {
+      document.querySelectorAll(".btn").forEach(btn => {
+        btn.textContent = btn.getAttribute(`data-${lang}`);
+      });
+    }
+
+    updateText();
+
+    // ⋯ Share button
+    function shareApp() {
+      if (navigator.share) {
+        navigator.share({
+          title: "ZOMA WALLPAPERS",
+          text: "Check out ZOMA Wallpapers app!",
+          url: window.location.href
+        });
+      } else {
+        alert(lang === "ar" ? "المشاركة غير مدعومة على هذا الجهاز" : "Sharing not supported on this device");
+      }
+    }
+  </script>
+</body>
+</html>
